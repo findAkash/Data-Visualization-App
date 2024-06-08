@@ -1,5 +1,3 @@
----
-
 ## Setup Instructions using Docker
 
 ### Prerequisites
@@ -43,7 +41,3 @@
 
 ### Additional Notes
 - Make sure ports `3000` and `8000` are not occupied by any other applications running on your machine.
-
-
-
----
