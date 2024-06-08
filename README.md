@@ -12,20 +12,15 @@
 
 2. **Navigate to Project Directory**:
    ```bash
-   cd <project-directory>
+   cd madkudu-task
    ```
 
-3. **Build Docker Images**:
+3. **Start Docker Containers with building**:
    ```bash
-   docker-compose build
+   docker-compose up --buid
    ```
 
-4. **Start Docker Containers**:
-   ```bash
-   docker-compose up
-   ```
-
-5. **Access the Application**:
+4. **Access the Application**:
    - Once the containers are up and running, you can access the application:
      - Frontend: Open your browser and go to `http://localhost:3000`
         '''
@@ -36,7 +31,7 @@
         '''
      - Backend: The backend API will be available at `http://localhost:8000/api/v1`
 
-6. **Stopping the Application**:
+5. **Stopping the Application**:
    - To stop the Docker containers, press `Ctrl + C` in the terminal where the containers are running.
 
 ### Additional Notes
