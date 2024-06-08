@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Disclosure,
   DisclosureButton,
@@ -10,6 +10,8 @@ import {
   Transition,
 } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ToastContainer, toast } from 'react-toastify';
+import API from '../services/API';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -20,11 +22,23 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      await API.logout(accessToken);
+      toast.success('Logout successful!');
+      setTimeout(() => navigate('/login'), 1000);
+    } catch (error) {
+      toast.error('An error occurred. Please try again.', error.message);
+    }
+  };
   return (
     <Disclosure as="nav" className="bg-gray-300">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <ToastContainer />
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -104,7 +118,7 @@ export default function Navbar() {
                       <MenuItem>
                         {({ focus }) => (
                           <a
-                            href="#"
+                            onClick={handleLogout}
                             className={classNames(
                               focus ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700'

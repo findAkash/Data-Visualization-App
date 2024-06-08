@@ -8,6 +8,10 @@ const CONFIG = require('../config/config');
 
 const registerCoreMiddleWare = () => {
   try {
+    // create default user for testing
+    const { createUser } = require('../controllers/Auth.controllers');
+    createUser();
+
     app.use(
       session({
         secret: CONFIG.SESSION_SECRET,

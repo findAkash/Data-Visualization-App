@@ -1,24 +1,45 @@
-// App.js
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { PrivateRoute } from './routes';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { PrivateRoute } from './routes'; // Import PrivateRoute component
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 
 const App = () => {
-  // Simulate authenticated state
-  const isAuthenticated = false;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
+
+  // Fetch stored access token (optional)
+  useEffect(() => {
+    const storedToken = localStorage.getItem('accessToken');
+    if (storedToken) {
+      setAccessToken(storedToken);
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  // Update token and authentication state on login
+  const handleLogin = (token) => {
+    setAccessToken(token);
+    setIsAuthenticated(true);
+  };
 
   return (
     <Router>
-      <Switch>
-        <Route path="/login" component={LoginPage} />
-        <PrivateRoute
-          path="/dashboard"
-          component={Dashboard}
-          isAuthenticated={isAuthenticated}
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              children={<Dashboard />}
+            />
+          }
         />
-      </Switch>
+        {/* {' '} */}
+        {/* Pass isAuthenticated prop */}
+        {/* Optionally add other routes here */}
+      </Routes>
     </Router>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchDataService } from '../services/fetchDataService';
+import API from '../services/API';
 import Navbar from '../components/Nav';
 import Search from '../components/Search';
 import DataTable from '../components/DataTable';
@@ -14,8 +14,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchDataService();
-        setData(result.data);
+        const result = await API.fetchData();
+        setData(result.data.species);
         setIsLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         setError('Error fetching data');
@@ -23,7 +23,7 @@ const Dashboard = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [searchQuery]);
   return (
     <div className="App p-0">
       <div className="Navbar mb-4">
@@ -40,7 +40,7 @@ const Dashboard = () => {
               <div>Loading...</div> // Render loading indicator
             ) : (
               <>
-                <DataTable data={data} />
+                <DataTable data={data} searchQuery={searchQuery} />
               </>
             )}
           </div>

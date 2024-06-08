@@ -8,10 +8,6 @@ class IndexRoute {
     const router = Express.Router();
     router.use('/species', SpeciesRoute.instance());
     router.use('/auth', AuthRoute.instance());
-    router.use((req, res, next) => {
-      createUser();
-      next();
-    });
     return router;
   }
 }
