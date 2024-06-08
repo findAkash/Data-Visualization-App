@@ -28,8 +28,11 @@ const API = {
       throw new Error(`Logout failed: ${response.statusText}`);
     }
   },
-  fetchData: async () => {
-    const response = await fetch(`${CONFIG.API_URL}/species/`);
+  fetchData: async (token) => {
+    const response = await fetch(`${CONFIG.API_URL}/species/`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    });
     if (response.ok) {
       return await response.json();
     } else {

@@ -1,4 +1,4 @@
-version: '1.0'
+version: '3.8'
 
 services:
   mongoDB:
@@ -6,6 +6,10 @@ services:
     container_name: mongoDB
     ports:
       - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
 
   backend:
     build: ./backend
@@ -14,6 +18,10 @@ services:
       - '8000:8000'
     depends_on:
       - mongoDB
+    environment:
+      - DB_URL=mongodb://mongoDB:27017/madkudu
+    networks:
+      - app-network
 
   frontend:
     build: ./frontend-app
@@ -22,3 +30,11 @@ services:
       - '3000:3000'
     depends_on:
       - backend
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:

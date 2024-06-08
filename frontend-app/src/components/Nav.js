@@ -118,6 +118,7 @@ export default function Navbar() {
                       <MenuItem>
                         {({ focus }) => (
                           <a
+                            href="#"
                             onClick={handleLogout}
                             className={classNames(
                               focus ? 'bg-gray-100' : '',

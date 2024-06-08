@@ -8,18 +8,18 @@ import LineChart from '../components/charts/LineChart';
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // New loading state
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await API.fetchData();
+        const token = localStorage.getItem('accessToken');
+        const result = await API.fetchData(token);
         setData(result.data.species);
-        setIsLoading(false); // Set loading to false when data is fetched
+        setIsLoading(false);
       } catch (error) {
-        setError('Error fetching data');
-        setIsLoading(false); // Set loading to false if there's an error
+        setIsLoading(false);
       }
     };
     fetchData();

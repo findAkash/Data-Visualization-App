@@ -6,22 +6,14 @@ import Dashboard from './pages/Dashboard';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [accessToken, setAccessToken] = useState(null);
 
   // Fetch stored access token (optional)
   useEffect(() => {
     const storedToken = localStorage.getItem('accessToken');
     if (storedToken) {
-      setAccessToken(storedToken);
       setIsAuthenticated(true);
     }
   }, []);
-
-  // Update token and authentication state on login
-  const handleLogin = (token) => {
-    setAccessToken(token);
-    setIsAuthenticated(true);
-  };
 
   return (
     <Router>
