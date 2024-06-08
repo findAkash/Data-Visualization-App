@@ -4,7 +4,7 @@ const CONFIG = require('../config/config');
 
 const verifyToken = (req, res, next) => {
   // get the token from the header
-  const token = req.header('Authorization'); // format: Bearer <token'
+  const token = req.header('Authorization'); // format: Bearer <token>
 
   if (!token) {
     return res.status(unauthorized).json({ error: 'Unauthorized' });
@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
 
   // verify the validaty of the token
   try {
-    const decoded = jwt.verify(token.split(' ')[1], CONFIG.SECRET);
+    const decoded = jwt.verify(token.split(' ')[1], CONFIG.JWT_SECRET);
     req.userId = decoded.userId;
     next();
   } catch (error) {
@@ -20,4 +20,4 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-module.exports = verifyToken;
+module.exports = { verifyToken };
