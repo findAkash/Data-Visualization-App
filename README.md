@@ -23,12 +23,12 @@
 4. **Access the Application**:
    - Once the containers are up and running, you can access the application:
      - Frontend: Open your browser and go to `http://localhost:3000`
-        '''
-        # To access the dashboard user need to login
+        ```
+        ### To access the dashboard user need to login
 
         email: akash@madkudu.com
         password: password
-        '''
+        ```
      - Backend: The backend API will be available at `http://localhost:8000/api/v1`
 
 5. **Stopping the Application**:
